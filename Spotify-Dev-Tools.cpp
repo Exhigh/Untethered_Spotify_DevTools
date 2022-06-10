@@ -11,6 +11,7 @@
 #pragma comment(lib, "psapi.lib")
 
 //(TODO) Find A Better Way To Store These ?
+std::string version13 = "1.1.87.612";
 std::string version12 = "1.1.86.857";
 std::string version11 = "1.1.85.895";
 std::string version10 = "1.1.85.884";
@@ -109,7 +110,9 @@ int main()
 	spotifyVersion = (char*) malloc(sizeof(processVersion) + 1); 
 	spotifyVersion = processVersion;
 	std::cout<<"Current Spotify Version - "<<spotifyVersion<<std::endl;
-	if (spotifyVersion == version12) {
+	if (spotifyVersion == version13) {
+		address = 0x1700ABD; // version: 1.1.87.612
+	} else if (spotifyVersion == version12) {
 		address = 0x16EFC3D; // version: 1.1.86.857
 	} else if (spotifyVersion == version11) {
 		address = 0x16B7C7C; // version: 1.1.85.895 
