@@ -27,6 +27,7 @@
  6. That's it, save the script and run the powershell script.
 
  ## Acknowledgements
+ * Initial Code Snippet: https://github.com/spicetify/spicetify-cli/issues/1518#issuecomment-1086363273
  * http://gnuwin32.sourceforge.net/version.c.txt
  
  Cheers - Exhigh
