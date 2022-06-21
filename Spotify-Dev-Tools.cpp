@@ -46,10 +46,10 @@ HANDLE GetProcessInfo(char* processName, char **processPath)
 			HANDLE TargetProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ | PROCESS_ALL_ACCESS, false, targetID);
 			if (TargetProcess != NULL) {
 				if (GetModuleFileNameEx(TargetProcess, NULL, exePath, MAX_PATH) != 0) {
-						*processPath = strdup(exePath);
-						return TargetProcess;
-				} 	else {
-						CloseHandle(TargetProcess);
+					*processPath = strdup(exePath);
+					return TargetProcess;
+				} else {
+					CloseHandle(TargetProcess);
 				}
 			}
 		}
@@ -61,7 +61,7 @@ HANDLE GetProcessInfo(char* processName, char **processPath)
 
 char* GetProcessVersion (char* processPath)
 {
-    DWORD dwHandle, dwLen;
+	DWORD dwHandle, dwLen;
 	UINT BufLen;
 	LPTSTR lpData, lpBuffer = NULL, LibName;
 	VS_FIXEDFILEINFO* pFileInfo;
@@ -72,7 +72,7 @@ char* GetProcessVersion (char* processPath)
 	}
 	LibName = processPath;
 	dwLen = GetFileVersionInfoSize (LibName, &dwHandle);
-	if (dwLen)	{
+	if (dwLen) {
 		lpData = (LPTSTR) malloc (dwLen);
 		if (lpData) {
 			if (GetFileVersionInfo (LibName, dwHandle, dwLen, lpData)) {
@@ -91,7 +91,7 @@ int main()
 {
 
 	HANDLE process;
-    std::string dummy, spotifyVersion;
+	std::string dummy, spotifyVersion;
 	int address = 0, fail = 0;
 	char *processVersion = NULL, *spotifyPath = NULL;
 	Retry:
