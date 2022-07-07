@@ -10,30 +10,36 @@
 #include <vector.h>
 #include <string.h>
 #include <tchar.h>
+#include <map.h>
 
 #pragma comment(lib, "psapi.lib")
 
-//(TODO) Find A Better Way To Store These ?
-std::string version18 = "1.1.89.862";
-std::string version17 = "1.1.89.858";
-std::string version16 = "1.1.89.854";
-std::string version15 = "1.1.88.612";
-std::string version14 = "1.1.88.595";
-std::string version13 = "1.1.87.612";
-std::string version12 = "1.1.86.857";
-std::string version11 = "1.1.85.895";
-std::string version10 = "1.1.85.884";
-std::string version9 = "1.1.84.716";
-std::string version8 = "1.1.83.956";
-std::string version7 = "1.1.83.954";
-std::string version6 = "1.1.83.944";
-std::string version5 = "1.1.82.760";
-std::string version4 = "1.1.82.758";
-std::string version3 = "1.1.82.754";
-std::string version2 = "1.1.81.604";
-std::string version1 = "1.1.81.598";
-std::string version = "1.1.80.699";
-
+int SpotifyVersionMapSearch(std::string x)
+{
+	std::map<std::string, int> version;
+	
+	version.insert(std::pair<std::string, int>("1.1.80.699", 0x16525FD));
+	version.insert(std::pair<std::string, int>("1.1.81.598", 0x170273E));
+	version.insert(std::pair<std::string, int>("1.1.81.604", 0x170B73E));
+	version.insert(std::pair<std::string, int>("1.1.82.754", 0x16E5A7E));
+	version.insert(std::pair<std::string, int>("1.1.82.758", 0x16E4A7E));
+	version.insert(std::pair<std::string, int>("1.1.82.760", 0x170BAFE));
+	version.insert(std::pair<std::string, int>("1.1.83.944", 0x16AAC3D));
+	version.insert(std::pair<std::string, int>("1.1.83.954", 0x16AAC3D));
+	version.insert(std::pair<std::string, int>("1.1.83.956", 0x16ACC3D));
+	version.insert(std::pair<std::string, int>("1.1.84.716", 0x16A597C));
+	version.insert(std::pair<std::string, int>("1.1.85.884", 0x16ACCBC));
+	version.insert(std::pair<std::string, int>("1.1.85.895", 0x16B7C7C));
+	version.insert(std::pair<std::string, int>("1.1.86.857", 0x16EFC3D));
+	version.insert(std::pair<std::string, int>("1.1.87.612", 0x1700ABD));
+	version.insert(std::pair<std::string, int>("1.1.88.595", 0x17121C5));
+	version.insert(std::pair<std::string, int>("1.1.88.612", 0x17131C5));
+	version.insert(std::pair<std::string, int>("1.1.89.854", 0x16F9C86));
+	version.insert(std::pair<std::string, int>("1.1.89.858", 0x16FBC86));
+	version.insert(std::pair<std::string, int>("1.1.89.862", 0x16FCC86));
+	
+	return version.find(x)->second;
+}
 
 HANDLE GetProcessInfo(char* processName, char **processPath)
 {
@@ -118,44 +124,8 @@ int main()
 	spotifyVersion = (char*) malloc(sizeof(processVersion) + 1); 
 	spotifyVersion = processVersion;
 	std::cout<<"Current Spotify Version - "<<spotifyVersion<<std::endl;
-	
-	if (spotifyVersion == version18) {
-		address = 0x16FCC86; // version: 1.1.89.862
-	} else if (spotifyVersion == version17) {
-		address = 0x16FBC86; // version: 1.1.89.858
-	} else if (spotifyVersion == version16) {
-		address = 0x16F9C86; // version: 1.1.89.854
-	} else if (spotifyVersion == version15) {
-		address = 0x17131C5; // version: 1.1.88.612
-	} else if (spotifyVersion == version14) {
-		address = 0x17121C5; // version: 1.1.88.595
-	} else if (spotifyVersion == version13) {
-		address = 0x1700ABD; // version: 1.1.87.612
-	} else if (spotifyVersion == version12) {
-		address = 0x16EFC3D; // version: 1.1.86.857
-	} else if (spotifyVersion == version11) {
-		address = 0x16B7C7C; // version: 1.1.85.895 
-	} else if (spotifyVersion == version10) {
-		address = 0x16ACCBC; // version: 1.1.85.884 
-	} else if (spotifyVersion == version9) {
-		address = 0x16A597C; // version: 1.1.84.716
-	} else if (spotifyVersion == version8) {
-		address = 0x16ACC3D; // version: 1.1.83.956
-	} else if (spotifyVersion == version6 || spotifyVersion == version7) {
-		address = 0x16AAC3D; // version: 1.1.83.954 & 1.1.83.944
-	} else if (spotifyVersion == version5) {
-		address = 0x170BAFE; // version: 1.1.82.760
-	} else if (spotifyVersion == version4) {
-		address = 0x16E4A7E; // version: 1.1.82.758
-	} else if (spotifyVersion == version3) {
-		address = 0x16E5A7E; // version: 1.1.82.754
-	} else if (spotifyVersion == version2) {
-		address = 0x170B73E; // version: 1.1.81.604
-	} else if (spotifyVersion == version1) {
-		address = 0x170273E; // version: 1.1.81.598
-	} else if (spotifyVersion == version) {
-		address = 0x16525FD; // version: 1.1.80.699
-	}
+
+	address = SpotifyVersionMapSearch(spotifyVersion);
 
 	int targetValue = 255;
 	int result = WriteProcessMemory(process, (LPVOID*)address, &targetValue, (DWORD)sizeof(targetValue), NULL);
