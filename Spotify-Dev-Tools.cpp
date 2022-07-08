@@ -14,7 +14,7 @@
 
 #pragma comment(lib, "psapi.lib")
 
-int SpotifyVersionMapSearch(std::string x)
+int SpotifyVersionMap(std::string x)
 {
 	std::map<std::string, int> version;
 	
@@ -38,7 +38,8 @@ int SpotifyVersionMapSearch(std::string x)
 	version.insert(std::pair<std::string, int>("1.1.89.858", 0x16FBC86));
 	version.insert(std::pair<std::string, int>("1.1.89.862", 0x16FCC86));
 	
-	return version.find(x)->second;
+	std::map<std::string, int>::iterator xe = version.find(x);
+	return ((xe != version.end()) ? xe->second : 0);
 }
 
 HANDLE GetProcessInfo(char* processName, char **processPath)
@@ -101,16 +102,16 @@ int main()
 
 	HANDLE process;
 	std::string dummy, spotifyVersion;
-	int address = 0, fail = 0;
-	char *processVersion = NULL, *spotifyPath = NULL;
+	int address, fail = 0;
+	char *processVersion, *spotifyPath = NULL;
 	Retry:
-	std::cout << "[!] This program works only for Spotify ^_^ "<<std::endl;
+	std::cout<<"[!] This program works only for Spotify ^_^ "<<std::endl;
 	process = GetProcessInfo("Spotify.exe",&spotifyPath);
 	if(!process) {
 		fail++;
-		std::cerr << "[-] Can't hook up to process (Is Spotify open?)." << std::endl;
-		std::cout<<"[!] Open Spotify And Hit Any Key To Continue" << std::endl;
-		std::cout<<"\nNumber of Times, Dev Tools Failed To Be Activated: "<<fail<<std::endl;
+		std::cerr<<"[-] Can't hook up to process (Is Spotify Open ?)"<<std::endl;
+		std::cout<<"[!] Open Spotify And Hit Any Key To Continue"<<std::endl;
+		std::cout<<"\n[!] Number of Times, Dev Tools Failed To Be Activated: "<<fail<<std::endl;
 		std::getline(std::cin, dummy);
 		clrscr();
 		goto Retry;
@@ -125,14 +126,14 @@ int main()
 	spotifyVersion = processVersion;
 	std::cout<<"Current Spotify Version - "<<spotifyVersion<<std::endl;
 
-	address = SpotifyVersionMapSearch(spotifyVersion);
+	address = SpotifyVersionMap(spotifyVersion);
 
 	int targetValue = 255;
 	int result = WriteProcessMemory(process, (LPVOID*)address, &targetValue, (DWORD)sizeof(targetValue), NULL);
 	if (result == 0x00 || address == 0) {
-		std::cerr << "[-] There was some error, try again later or open an issue, with the Spotify Version!" << std::endl;
+		std::cerr<<"[-] There was some error, try again later or open an issue, with the Spotify Version!"<<std::endl;
 	} else {
-		std::cout<< "[+] Developer mode has been successfully enabled."<<std::endl;
+		std::cout<<"[+] Developer mode has been successfully enabled."<<std::endl;
 	}
 	std::cout<<"[!] Press Any Key To Exit"<<std::endl;
 	std::getline(std::cin, dummy);
