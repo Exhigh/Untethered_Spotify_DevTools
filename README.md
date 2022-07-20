@@ -6,6 +6,9 @@
  Once, the Spotify executable is running, run the executable and it should patch the appropriate memory address ^_^.              
  This should grant the user access to the dev tools until the Spotify application is restarted / reloaded.
  
+ ### Version - Compatibility
+ `1.1.80+ - 1.1.90+`
+ 
  ### Tips - Advanced
  Using this method the right context menu, doesn't work like it used to which enabled the user to call the dev tools,
  as well as reload the application, albeit with the above method, the access to dev tools is lost once the application is restarted,
