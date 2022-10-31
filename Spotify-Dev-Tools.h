@@ -46,6 +46,8 @@ uintptr_t SpotifyVersionMap(std::string x)
 	version.insert(std::pair<std::string, int>("1.1.95.893", 0x1706F86));
 	version.insert(std::pair<std::string, int>("1.1.96.783", 0x171D2FE));
 	version.insert(std::pair<std::string, int>("1.1.96.785", 0x17152FE));
+	version.insert(std::pair<std::string, int>("1.1.97.956", 0x171A8BE));
+	version.insert(std::pair<std::string, int>("1.1.97.962", 0x17148BE));
 
 	std::unordered_map<std::string, int>::iterator xe = version.find(x);
 	return ((xe != version.end()) ? xe->second : 0);
