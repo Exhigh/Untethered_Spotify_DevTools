@@ -9,7 +9,7 @@
  ### Version - Compatibility
  `1.1.80+ - 1.2.8+`
  
- ### Tips - Advanced
+ ### Tips - Advanced (Outdated, kept for the sake of preservation, but still can be used, might be finicky)
  Using this method the right context menu, doesn't work like it used to which enabled the user to call the dev tools,
  as well as reload the application, albeit with the above method, the access to dev tools is lost once the application is restarted,
  since we patch the memory address holding the value for dev tools, but with the instructions below, if the `executable` is run,
@@ -33,5 +33,5 @@
  * Initial Code Snippet: https://github.com/spicetify/spicetify-cli/issues/1518#issuecomment-1086363273
  * http://gnuwin32.sourceforge.net/version.c.txt
  
- Cheers - Exhigh
+ Cheers
  
