@@ -7,7 +7,7 @@
  This should grant the user access to the dev tools until the Spotify application is restarted / reloaded.
  
  ### Version - Compatibility
- `1.1.80+ - 1.2.14+`
+ `1.1.80+ - 1.2.17+`
  
  ### Tips - Advanced (Outdated, kept for the sake of preservation, but still can be used, might be finicky)
  Using this method the right context menu, doesn't work like it used to which enabled the user to call the dev tools,
